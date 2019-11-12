@@ -236,13 +236,25 @@
 				if ( lBracket !== -1 && rBracket !== -1 && lBracket < rBracket ) {
 					type = messageKey.slice( lBracket + 1, rBracket );
 					key = messageKey.slice( rBracket + 1 );
+					var args = null;
+                    			var k = key;
+                    			if (key.indexOf(',')) {
+                        			args = key.split(',');
+                        			k = args.shift();
+                    			}
 					if ( type === 'html' ) {
-						$this.html( i18n.parse( key ) );
+						$this.html( i18n.parse( k, args ) );
 					} else {
-						$this.attr( type, i18n.parse( key ) );
+						$this.attr( type, i18n.parse( k, args ) );
 					}
 				} else {
-					$this.text( i18n.parse( messageKey ) );
+					var args = null;
+                    			var key = messageKey;
+                    			if (messageKey.indexOf(',')) {
+                        			args = messageKey.split(',');
+                        			key = args.shift();
+                    			}
+					$this.text( i18n.parse( key, args ) );
 				}
 			} else {
 				$this.find( '[data-i18n]' ).i18n();
